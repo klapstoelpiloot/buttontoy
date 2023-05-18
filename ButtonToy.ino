@@ -1,19 +1,29 @@
-#define BUTTONS_PIN		21
+#include "AnalogButtons.h"
+
+AnalogButtons buttons;
 
 void setup()
 {
 	Serial.begin(9600);
-	analogReference(VDD);
-	analogRead(BUTTONS_PIN);
-	analogRead(BUTTONS_PIN);
-	analogRead(BUTTONS_PIN);
-	analogRead(BUTTONS_PIN);
-	analogRead(BUTTONS_PIN);
+	buttons.Setup();
 }
 
 void loop()
 {
-	int sensorValue = analogRead(BUTTONS_PIN);
-	float voltage = sensorValue * (5.0 / 1023.0);
-	Serial.println(voltage);
+	buttons.Update();
+
+	bool addcomma = false;
+	for(int i = 0; i < NUM_BUTTONS; i++)
+	{
+		if(buttons.IsDown(i))
+		{
+			if(addcomma)
+			{
+				Serial.print(", ");
+			}
+			Serial.print(i);
+			addcomma = true;
+		}
+	}
+	Serial.println();
 }

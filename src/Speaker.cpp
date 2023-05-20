@@ -23,6 +23,7 @@ void Speaker::Update()
 
 void Speaker::Play(IMelody& m)
 {
+    noTone(PIN_SPEAKER);
     melody = &m;
     wholenoteduration = (60000 * 4) / melody->GetTempo();
     currentnote = -1;
@@ -44,13 +45,31 @@ void Speaker::PlayNextNote()
         return;
     }
 
+    // Setup note
     currentnote++;
     Note n = melody->GetNote(currentnote);
-    int toneduration = wholenoteduration / n.Duration;
-    int pauseduration = (melody->GetNotePause() > 0) ? (wholenoteduration / melody->GetNotePause()) : 0;
-    if(n.Tone > 0)
+    int toneduration;
+    int pauseduration;
+    if(melody->GetAbsDurations())
+    {
+        toneduration = n.Duration / melody->GetTempo();
+        pauseduration = melody->GetNotePause() / melody->GetTempo();
+    }
+    else
+    {
+        toneduration = wholenoteduration / n.Duration;
+        pauseduration = (melody->GetNotePause() > 0) ? (wholenoteduration / melody->GetNotePause()) : 0;
+    }
+
+    // Play the note (unless it is a REST)
+    if(n.Tone != REST)
     {
         tone(PIN_SPEAKER, n.Tone, toneduration);
     }
+    else
+    {
+        noTone(PIN_SPEAKER);
+    }
+
     nextnotetime = millis() + toneduration + pauseduration;
 }

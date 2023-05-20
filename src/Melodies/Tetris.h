@@ -2,17 +2,18 @@
 
 class Tetris : public virtual IMelody
 {
-    virtual Note GetNote(int index) override { return Note(melody[index], durations[index]); }
+    virtual Note GetNote(int index) override { return Note(notes[index], durations[index]); }
     virtual int GetNoteCount() override { return notecount; }
     virtual int GetTempo() override { return 160; }
     virtual int GetNotePause() override { return 0; }
-    static int melody[];
+    virtual bool GetAbsDurations() override { return false; }
+    static int notes[];
     static int durations[];
     static int notecount;
 };
 
 // Credit to HiBit (https://www.hibit.dev) for the melody below
-int Tetris::melody[] = {
+int Tetris::notes[] = {
     NOTE_E5, NOTE_B4, NOTE_C5, NOTE_D5, NOTE_C5, NOTE_B4,
     NOTE_A4, NOTE_A4, NOTE_C5, NOTE_E5, NOTE_D5, NOTE_C5,
     NOTE_B4, NOTE_C5, NOTE_D5, NOTE_E5,
@@ -54,4 +55,4 @@ int Tetris::durations[] = {
     2
 };
 
-int Tetris::notecount = sizeof(melody) / sizeof(melody[0]);
+int Tetris::notecount = sizeof(notes) / sizeof(notes[0]);

@@ -3,6 +3,7 @@
 // Change the define PUZZLE to define the name of your puzzle (should match the filename without .h extension).
 // Remove this comment block.
 // Include this puzzle in ButtonToy.ino like the others.
+#undef PUZZLE
 #define PUZZLE PuzzleTemplate
 #include "PuzzleTemplate.h"
 

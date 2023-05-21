@@ -39,6 +39,7 @@ void Speaker::Stop()
 
 void Speaker::PlayNextNote()
 {
+    currentnote++;
     if(currentnote >= melody->GetNoteCount())
     {
         Stop();
@@ -46,7 +47,6 @@ void Speaker::PlayNextNote()
     }
 
     // Setup note
-    currentnote++;
     Note n = melody->GetNote(currentnote);
     int toneduration;
     int pauseduration;
@@ -61,7 +61,7 @@ void Speaker::PlayNextNote()
         pauseduration = (melody->GetNotePause() > 0) ? (wholenoteduration / melody->GetNotePause()) : 0;
     }
 
-    // Play the note (unless it is a REST)
+    // Play the note
     if(n.Tone != REST)
     {
         tone(PIN_SPEAKER, n.Tone, toneduration);

@@ -1,6 +1,6 @@
 #include "../IMelody.h"
 
-class ButtonSFX : public virtual IMelody
+class ToggleSound : public virtual IMelody
 {
     virtual Note GetNote(int index) override { return Note(notes[index], durations[index]); }
     virtual int GetNoteCount() override { return notecount; }
@@ -12,13 +12,12 @@ class ButtonSFX : public virtual IMelody
     static int notecount;
 };
 
-// Reverse engineered this from a PC speaker recording by looking at a spectrogram all evening.
-int ButtonSFX::notes[] = {
+int ToggleSound::notes[] = {
     150, REST, 220, REST, 100
 };
 
-int ButtonSFX::durations[] = {
+int ToggleSound::durations[] = {
     160, 200, 160, 100, 180
 };
 
-int ButtonSFX::notecount = sizeof(notes) / sizeof(notes[0]);
+int ToggleSound::notecount = sizeof(ToggleSound::notes) / sizeof(ToggleSound::notes[0]);

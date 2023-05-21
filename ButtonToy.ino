@@ -1,9 +1,9 @@
 #include "ButtonToy.h"
+#include "src/RewardState.h"
+#include "src/Melodies/ToggleSound.h"
 #include "src/Puzzles/SimpleToggle.h"
 #include "src/Puzzles/SimpleToggleRndStart.h"
-#include "src/Melodies/Tetris.h"
-#include "src/RewardState.h"
-#include "src/Melodies/ButtonSFX.h"
+#include "src/Puzzles/ThreeStateToggle.h"
 
 // Global objects
 Buttons buttons;
@@ -13,23 +13,18 @@ Speaker speaker;
 // Allocation of puzzles
 SimpleToggle simpletoggle;
 SimpleToggleRndStart simpletogglerndstart;
+ThreeStateToggle threestatetoggle;
 
 // List of puzzles (add reference to puzzles in this array)
-IState* puzzles[] = { &simpletoggle, &simpletogglerndstart };
+IState* puzzles[] = { &simpletoggle, &simpletogglerndstart, &threestatetoggle };
 int puzzleindex = 0;
 IState* currentstate = nullptr;
 
-// Allocation of melodies
-Tetris tetris;
-
-// List of melodies (only for puzzle rewards)
-IMelody* melodies[] = { &tetris };
-
-// When receiving a reward
+// State used when receiving a reward
 RewardState reward;
 
-// Button sound
-ButtonSFX buttonsfx;
+// LED toggle sound
+ToggleSound togglesound;
 
 void setup()
 {
@@ -47,6 +42,7 @@ void setup()
     // Start the first puzzle
     currentstate = puzzles[puzzleindex];
     puzzles[puzzleindex]->Enter();
+    buttons.FadeLed(true);
 }
 
 void loop()
@@ -61,7 +57,7 @@ void loop()
         {
             if(speaker.IsFinished())
             {
-                speaker.Play(buttonsfx);
+                speaker.Play(togglesound);
             }
             currentstate->OnButtonPress(i);
         }
@@ -77,10 +73,6 @@ void loop()
         // Next puzzle?
         if(currentstate == &reward)
         {
-            // Play a random melody
-            //int melodyindex = random(0, sizeof(melodies) / sizeof(melodies[0]));
-            //speaker.Play(*melodies[melodyindex]);
-
             // Go to the next puzzle
             puzzleindex++;
             if(puzzleindex == (sizeof(puzzles) / sizeof(puzzles[0])))

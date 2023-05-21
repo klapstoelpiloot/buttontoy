@@ -1,8 +1,11 @@
 #include "RewardState.h"
 #include "Arduino.h"
-#include "Melodies/RewardSFX.h"
+#include "Melodies/Reward1.h"
+#include "Melodies/Reward2.h"
+#include "Melodies/Reward3.h"
 
 #define START_DELAY             400
+#define GREEN_FLASH_DELAY       400
 #define END_DELAY               400
 #define CYCLE_INTERVAL          1
 #define CYCLE_LED_OFFSET        50
@@ -25,18 +28,24 @@ int CYCLE_COLORS[] = {
 };
 #define CYCLE_NUM_COLORS        (sizeof(CYCLE_COLORS) / sizeof(CYCLE_COLORS[0]))
 
-RewardSFX sfx;
+// List of reward sound effects
+Reward1 sfx1;
+Reward2 sfx2;
+Reward3 sfx3;
+IMelody* rewardsfx[] = { &sfx1, &sfx2, &sfx3 };
 
 enum Ani
 {
     StartDelay,
-    GreenFlash,
+    GreenFlashMusic,
+    GreenFlashDelay,
     EndDelay,
     Finished
 };
 
 RewardState::RewardState() :
-    currentani(Ani::StartDelay)
+    currentani(Ani::StartDelay),
+    anistarttime(0)
 {
 }
 
@@ -60,19 +69,23 @@ void RewardState::Update()
         case Ani::StartDelay:
             if(t > (anistarttime + START_DELAY))
             {
-                speaker.Play(sfx);
-                StartAni(Ani::GreenFlash);
+                PlayRandomTune();
+                StartAni(Ani::GreenFlashMusic);
             }
             break;
 
-        case Ani::GreenFlash:
-            // Cycle LEDS through colors
-            for(int i = 0; i < NUM_LEDS; i++)
-            {
-                int c = (((int)(t - anistarttime) + CYCLE_LED_OFFSET * (NUM_LEDS - i)) / CYCLE_INTERVAL) % CYCLE_NUM_COLORS;
-                leds.Set(i, CYCLE_COLORS[c]);
-            }
+        case Ani::GreenFlashMusic:
+            GreenFlashLEDs(t);
             if(speaker.IsFinished())
+            {
+                speaker.Stop();
+                StartAni(Ani::GreenFlashDelay);
+            }
+            break;
+
+        case Ani::GreenFlashDelay:
+            GreenFlashLEDs(t);
+            if(t > (anistarttime + GREEN_FLASH_DELAY))
             {
                 leds.SetAll(OFF);
                 StartAni(Ani::EndDelay);
@@ -105,4 +118,20 @@ void RewardState::StartAni(int ani)
 {
     currentani = ani;
     anistarttime = millis();
+}
+
+void RewardState::PlayRandomTune()
+{
+    int i = random(0, sizeof(rewardsfx) / sizeof(rewardsfx[0]));
+    speaker.Play(*rewardsfx[i]);
+}
+
+void RewardState::GreenFlashLEDs(unsigned long t)
+{
+    // Cycle LEDS through colors
+    for(int i = 0; i < NUM_LEDS; i++)
+    {
+        int c = (int)(((t + CYCLE_LED_OFFSET * (NUM_LEDS - i)) / CYCLE_INTERVAL) % CYCLE_NUM_COLORS);
+        leds.Set(i, CYCLE_COLORS[c]);
+    }
 }

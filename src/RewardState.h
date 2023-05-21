@@ -8,6 +8,8 @@ private:
     unsigned long anistarttime;
 
     void StartAni(int ani);
+    void PlayRandomTune();
+    void GreenFlashLEDs(unsigned long t);
 
 public:
 

@@ -25,7 +25,7 @@ button presses.
 The brightness of the RGB LEDs slightly differs for each Red, Green and Blue component and I like each component to be roughly
 the same brightness. So I need a different resistor value for each LED component. For the red LED I use a 100 ohm resistor and
 this causes the LED to draw about 30mA current. This is an acceptable high limit for the LED but not acceptable for the Arduino
-from which you should pull no more than 20mA per digital output pin. For each red LED I use a transistor to amplify the current
+from which you should pull no more than 20mA per digital output pin. For each red LED, I use a transistor to amplify the current
 and with a 1k ohm resistor on the digital pin, I only draw about 2.4mA.
 
 <p align="center"><img src="LedsWiring.png"  width="30%" height="30%"></p>
@@ -41,6 +41,7 @@ For example, a state can continue to change LED colors while a melody is playing
 are called with an Update() function in which they do their work, but do not block the application. The use of delay() is not
 allowed and everything is done through custom timers (read millis() and compare).
 
-The logic which decodes the analog button input is in Buttons.cpp. It first checks if the value of the most significant button
-(the one closest to the R-2R DAC output) is in the read value (with an acceptable range) and subtracts it if it was found. Then
-it continues with the next button until all buttons are checked.
+The logic which decodes the analog button input is in Buttons.cpp. It continuously reads the voltage on pin D21.
+Each time, it first checks if the read value is higher than the value associated with the most significant button (the button which adds the highest voltage) and,
+if so, subtracts that button's value from the read value and continues with the next button. This way (if the R-2R DAC is designed correctly) you can detect any
+combination of buttons pressed together simultaneously. There is also some timing logic which takes care of debouncing and voltage (measurement) fluctuations.

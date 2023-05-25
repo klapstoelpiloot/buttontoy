@@ -11,7 +11,7 @@ in some logic way. When you get all lights to turn green the toy plays a music t
 
 ## Electronics
 The Arduino is powered by a 9V battery. The 5 RGB LEDs are all individually connected to 15 digital output pins of the Arduino
-(it has a total of 20). The speaker also takes 1 digital output pin. I use pin D3 for the speaker, because the tone() function
+(it has a total of 20). The speaker also takes 1 digital output pin. I use pin D3 for the speaker, because the `tone()` function
 in Arduino [disables PWM on that pin anyway](https://emalliab.wordpress.com/2022/01/23/arduino-nano-every-timers-and-pwm).
 
 <p align="center"><img src="ArduinoPins.png"  width="40%" height="40%"></p>
@@ -38,10 +38,10 @@ possible. Because these together draw more than 300mA they also need to be fed t
 The software is designed as a state machine, where each puzzle is a state and there is a "reward" state which plays an
 animation and melody. Everything is coded in a non-blocking manner, such that different processes can operate simultaneously.
 For example, a state can continue to change LED colors while a melody is playing. In the main loop, the different systems
-are called with an Update() function in which they do their work, but do not block the application. The use of delay() is not
-allowed and everything is done through custom timers (read millis() and compare).
+are called with an `Update()` function in which they do their work, but do not block the application. The use of `delay()` is not
+allowed and everything is done through custom timers (read `millis()` and compare).
 
-The logic which decodes the analog button input is in Buttons.cpp. It continuously reads the voltage on pin D21.
+The logic which decodes the analog button input is in `Buttons.cpp`. It continuously reads the voltage on pin D21.
 Each time, it first checks if the read value is higher than the value associated with the most significant button (the button which adds the highest voltage) and,
 if so, subtracts that button's value from the read value and continues with the next button. This way (if the R-2R DAC is designed correctly) you can detect any
 combination of buttons pressed together simultaneously. There is also some timing logic which takes care of debouncing and voltage (measurement) fluctuations.

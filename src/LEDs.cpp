@@ -54,15 +54,15 @@ void LEDs::SetAll(int state)
     }
 }
 
-bool LEDs::AreAllGreen()
+int LEDs::CountGreenLEDs()
 {
-    bool allgreen = true;
+    int greencount = 0;
     for(int i = 0; i < NUM_LEDS; i++)
     {
-        if(ledstate[i] != GREEN)
+        if(ledstate[i] == GREEN)
         {
-            allgreen = false;
+            greencount++;
         }
     }
-    return allgreen;
+    return greencount;
 }

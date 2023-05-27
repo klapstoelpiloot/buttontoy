@@ -15,5 +15,6 @@ public:
     int Get(int index) { return ledstate[index]; }
     void Set(int index, int state);
     void SetAll(int state);
-    bool AreAllGreen();
+    int CountGreenLEDs();
+    bool AreAllGreen() { return (CountGreenLEDs() == NUM_LEDS); }
 };

@@ -1,10 +1,8 @@
 #include "RewardState.h"
 #include "Arduino.h"
-#include "Melodies/Reward1.h"
-#include "Melodies/Reward2.h"
-#include "Melodies/Reward3.h"
+#include "RewardMelodies.h"
 
-#define START_DELAY             400
+#define START_DELAY             800
 #define GREEN_FLASH_DELAY       400
 #define END_DELAY               400
 #define CYCLE_INTERVAL          1
@@ -32,7 +30,10 @@ int CYCLE_COLORS[] = {
 Reward1 sfx1;
 Reward2 sfx2;
 Reward3 sfx3;
-IMelody* rewardsfx[] = { &sfx1, &sfx2, &sfx3 };
+Reward4 sfx4;
+Reward5 sfx5;
+Reward6 sfx6;
+IMelody* rewardsfx[] = { &sfx1, &sfx2, &sfx3, &sfx4, &sfx5, &sfx6 };
 
 enum Ani
 {

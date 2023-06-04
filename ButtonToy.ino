@@ -5,11 +5,12 @@
 // Puzzle includes
 #include "src/Puzzles/HelloWorld.h"
 #include "src/Puzzles/SimpleToggle.h"
-#include "src/Puzzles/SimpleToggleRndStart.h"
 #include "src/Puzzles/ThreeStateToggle.h"
-#include "src/Puzzles/FourStateToggle.h"
 #include "src/Puzzles/FiveStateToggle.h"
 #include "src/Puzzles/TimeoutToggle.h"
+#include "src/Puzzles/RandomOrder.h"
+#include "src/Puzzles/CycleSequence.h"
+#include "src/Puzzles/LeftRightSwap.h"
 
 // Global objects
 Buttons buttons;
@@ -19,14 +20,15 @@ Speaker speaker;
 // Allocation of puzzles
 HelloWorld helloworld;
 SimpleToggle simpletoggle;
-SimpleToggleRndStart simpletogglerndstart;
 ThreeStateToggle threestatetoggle;
-FourStateToggle fourstatetoggle;
 FiveStateToggle fivestatetoggle;
 TimeoutToggle timeouttoggle;
+RandomOrder randomorder;
+CycleSequence cyclesequence;
+LeftRightSwap leftrightswap;
 
 // List of puzzles (add reference to puzzles in this array)
-IState* puzzles[] = { &helloworld, &simpletoggle, &simpletogglerndstart, &threestatetoggle, &fourstatetoggle, &fivestatetoggle, &timeouttoggle };
+IState* puzzles[] = { &helloworld, &simpletoggle, &threestatetoggle, &fivestatetoggle, &randomorder, &timeouttoggle, &cyclesequence, &leftrightswap };
 int puzzleindex = 0;
 IState* currentstate = nullptr;
 

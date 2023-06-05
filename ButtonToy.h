@@ -5,11 +5,24 @@
 #include "src/IState.h"
 
 class ToggleSound0;
+class ToggleSound1;
+class ToggleSound2;
+class ToggleSound3;
+class ToggleSound4;
+class ToggleSound5;
+class ToggleSound6;
 
 extern Buttons buttons;
 extern LEDs leds;
 extern Speaker speaker;
 extern ToggleSound0 togglesound0;
+extern ToggleSound1 togglesound1;
+extern ToggleSound2 togglesound2;
+extern ToggleSound3 togglesound3;
+extern ToggleSound4 togglesound4;
+extern ToggleSound5 togglesound5;
+extern ToggleSound6 togglesound6;
+extern IMelody* ledcountsounds[];
 
 // All colors that we use in puzzles are RED, BLUE, YELLOW, PURPLE and GREEN.
 // Note that green is the last color, so we can exclude green by simply pretending the array is one smaller.

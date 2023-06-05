@@ -14,6 +14,7 @@
 #include "src/Puzzles/HoldDown.h"
 #include "src/Puzzles/HoldRandomCycle.h"
 #include "src/Puzzles/MirroredButtons.h"
+#include "src/Puzzles/HoldToCycle.h"
 
 // Global objects
 Buttons buttons;
@@ -32,10 +33,11 @@ LeftRightSwap leftrightswap;
 HoldDown holddown;
 HoldRandomCycle holdrandomcycle;
 MirroredButtons mirroredbuttons;
+HoldToCycle holdtocycle;
 
 // List of puzzles (add reference to puzzles in this array)
 IState* puzzles[] = { &helloworld, &simpletoggle, &threestatetoggle, &fivestatetoggle, &randomorder, &timeouttoggle, &mirroredbuttons,
-    &cyclesequence, &leftrightswap, &holddown, &holdrandomcycle };
+    &cyclesequence, &leftrightswap, &holddown, &holdrandomcycle, &holdtocycle };
 int puzzleindex = 0;
 IState* currentstate = nullptr;
 

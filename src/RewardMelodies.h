@@ -97,7 +97,7 @@ class Reward4 : public virtual IMelody
 {
     virtual Note GetNote(int index) override { return Note(notes[index], durations[index]); }
     virtual int GetNoteCount() override { return notecount; }
-    virtual int GetTempo() override { return 160; }
+    virtual int GetTempo() override { return 120; }
     virtual int GetNotePause() override { return 0; }
     virtual bool GetAbsDurations() override { return false; }
     static int notes[];
@@ -177,8 +177,8 @@ int Reward5::durations[] = {
 8, 0, 8, 8, 8, 8, 
 4, 0, 8, 0,
 0, 0,
-2, 2,
-2, 2,
+4, 4,
+4, 4,
 
 0, 0, 8, 8, 4, 4
 };

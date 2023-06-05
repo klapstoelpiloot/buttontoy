@@ -7,7 +7,7 @@ unsigned long CycleSequence_cycletime = 0;
 
 int CycleSequence_NextColor(int index)
 {
-    return ALL_COLORS[(leds.Get(index) + 1) % ALL_COLORS_COUNT];
+    return ALL_COLORS[(ColorIndex(leds.Get(index)) + 1) % ALL_COLORS_COUNT];
 }
 
 PUZZLE::PUZZLE()

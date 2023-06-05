@@ -35,3 +35,7 @@ int RandomColor();
 
 // Returns a random color for use in puzzles, but never returns green
 int RandomColorNoGreen();
+
+// Returns the index of the specified color in the ALL_COLORS array
+// Returns -1 when the specified color is not in the ALL_COLORS array
+int ColorIndex(int color);

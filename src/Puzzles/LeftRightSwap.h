@@ -2,7 +2,7 @@
 #define PUZZLE LeftRightSwap
 #include "../PuzzleTemplate.h"
 
-int LeftRightSwap_NoGreens[] = { RED, BLUE, YELLOW };
+int LeftRightSwap_NoGreens[] = { RED, BLUE };
 #define LeftRightSwap_NoGreens_Count  (sizeof(LeftRightSwap_NoGreens) / sizeof(LeftRightSwap_NoGreens[0]))
 
 PUZZLE::PUZZLE()
@@ -16,10 +16,6 @@ void PUZZLE::Enter()
     {
         leds.Set(i, LeftRightSwap_NoGreens[random(0, LeftRightSwap_NoGreens_Count)]);
     }
-
-    // There must be at least one non-red
-    leds.Set(random(0, NUM_LEDS), BLUE);
-    leds.Set(random(0, NUM_LEDS), YELLOW);
 }
 
 void PUZZLE::Leave()
@@ -34,10 +30,6 @@ void PUZZLE::OnButtonPress(int index)
 {
     switch(leds.Get(index))
     {
-        case RED:
-            // Don't do anything
-            break;
-
         case BLUE:
             // Swap with the left. Far left becomes green.
             if(index == 0)
@@ -52,7 +44,7 @@ void PUZZLE::OnButtonPress(int index)
             }
             break;
 
-        case YELLOW:
+        case RED:
             // Swap with the right. Far right becomes green.
             if(index == (NUM_LEDS - 1))
             {
@@ -61,13 +53,14 @@ void PUZZLE::OnButtonPress(int index)
             else
             {
                 int other = leds.Get(index + 1);
-                leds.Set(index + 1, YELLOW);
+                leds.Set(index + 1, RED);
                 leds.Set(index, other);
             }
             break;
 
         case GREEN:
-            leds.Set(index, RED);
+            // Become either red or blue
+            leds.Set(index, LeftRightSwap_NoGreens[random(0, LeftRightSwap_NoGreens_Count)]);
             break;
 
         default:

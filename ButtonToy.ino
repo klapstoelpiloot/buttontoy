@@ -149,3 +149,16 @@ int RandomColorNoGreen()
 {
     return ALL_COLORS[random(0, COLORS_NOGREEN_COUNT)];
 }
+
+// Returns the index of the specified color in the ALL_COLORS array
+// Returns -1 when the specified color is not in the ALL_COLORS array
+int ColorIndex(int color)
+{
+    for(int i = 0; i < ALL_COLORS_COUNT; i++)
+    {
+        if(ALL_COLORS[i] == color)
+            return i;
+    }
+
+    return -1;
+}

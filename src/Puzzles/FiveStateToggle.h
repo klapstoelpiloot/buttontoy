@@ -25,7 +25,7 @@ void PUZZLE::Update()
 
 void PUZZLE::OnButtonPress(int index)
 {
-    leds.Set(index, ALL_COLORS[(leds.Get(index) + 1) % ALL_COLORS_COUNT]);
+    leds.Set(index, ALL_COLORS[(ColorIndex(leds.Get(index)) + 1) % ALL_COLORS_COUNT]);
 }
 
 void PUZZLE::OnButtonRelease(int index)

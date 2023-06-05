@@ -26,7 +26,7 @@ void PUZZLE::Update()
 void PUZZLE::OnButtonPress(int index)
 {
     int mirrorindex = (NUM_BUTTONS - 1) - index;
-    leds.Set(mirrorindex, ALL_COLORS[(leds.Get(mirrorindex) + 1) % ALL_COLORS_COUNT]);
+    leds.Set(mirrorindex, ALL_COLORS[(ColorIndex(leds.Get(mirrorindex)) + 1) % ALL_COLORS_COUNT]);
 }
 
 void PUZZLE::OnButtonRelease(int index)

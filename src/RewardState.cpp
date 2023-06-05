@@ -1,5 +1,5 @@
-#include "RewardState.h"
 #include "Arduino.h"
+#include "RewardState.h"
 #include "RewardMelodies.h"
 
 #define START_DELAY             800
@@ -108,6 +108,10 @@ void RewardState::Update()
 void RewardState::OnButtonPress(int index)
 {
     // This state doesn't respond to buttons
+}
+
+void RewardState::OnButtonRelease(int index)
+{
 }
 
 bool RewardState::IsFinished()

@@ -3,7 +3,7 @@
 #include "../PuzzleTemplate.h"
 
 int LeftRightSwap_NoGreens[] = { RED, BLUE, YELLOW };
-#define LeftRightSwap_NoGreens_Count  sizeof(LeftRightSwap_NoGreens) / sizeof(LeftRightSwap_NoGreens[0])
+#define LeftRightSwap_NoGreens_Count  (sizeof(LeftRightSwap_NoGreens) / sizeof(LeftRightSwap_NoGreens[0]))
 
 PUZZLE::PUZZLE()
 {
@@ -74,4 +74,8 @@ void PUZZLE::OnButtonPress(int index)
             leds.Set(index, RED);
             break;
     }
+}
+
+void PUZZLE::OnButtonRelease(int index)
+{
 }

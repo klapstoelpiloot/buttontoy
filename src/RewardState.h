@@ -28,6 +28,9 @@ public:
     // To check buttons being held down, use the Buttons object.
     virtual void OnButtonPress(int index) override;
 
+    // Called when one of the buttons is released ofter being pressed.
+    virtual void OnButtonRelease(int index) override;
+
     // Returns True when te puzzle is finished (when all LEDs are green)
     virtual bool IsFinished() override;
 };

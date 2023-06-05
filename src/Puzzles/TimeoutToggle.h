@@ -6,8 +6,6 @@
 
 unsigned long PUZZLE_lasttoggletime[NUM_LEDS];
 
-ToggleSound0 PUZZLE_togglesound0;
-
 PUZZLE::PUZZLE()
 {
 }
@@ -39,7 +37,7 @@ void PUZZLE::Update()
         {
             leds.Set(i, RED);
             PUZZLE_lasttoggletime[i] = 0;
-            speaker.Play(PUZZLE_togglesound0);
+            speaker.Play(togglesound0);
         }
     }
 }
@@ -54,4 +52,8 @@ void PUZZLE::OnButtonPress(int index)
         default: leds.Set(index, RED); break;
     }
     PUZZLE_lasttoggletime[index] = millis();
+}
+
+void PUZZLE::OnButtonRelease(int index)
+{
 }

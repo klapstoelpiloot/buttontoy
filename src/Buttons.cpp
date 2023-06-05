@@ -1,5 +1,5 @@
-#include "Buttons.h"
 #include "Arduino.h"
+#include "Buttons.h"
 
 #define SAMPLES_PER_LOOP    10
 #define DEBOUNCE_TIMEOUT    50
@@ -22,6 +22,7 @@ Buttons::Buttons() :
     {
         down[i] = false;
         pressed[i] = false;
+        released[i] = false;
         measuredstate[i] = false;
         changetime[i] = 0;
     }
@@ -116,11 +117,16 @@ void Buttons::Update()
     for(int i = 0; i < NUM_BUTTONS; i++)
     {
         pressed[i] = false;
+        released[i] = false;
 
         if((measuredstate[i] != down[i]) && ((t - changetime[i]) > DEBOUNCE_TIMEOUT))
         {
             down[i] = measuredstate[i];
-            pressed[i] = measuredstate[i];
+
+            if(measuredstate[i])
+                pressed[i] = true;
+            else
+                released[i] = true;
         }
     }
 }

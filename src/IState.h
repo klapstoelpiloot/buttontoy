@@ -28,6 +28,9 @@ public:
     // To check buttons being held down, use the Buttons object.
     virtual void OnButtonPress(int index) = 0;
 
+    // Called when one of the buttons is released ofter being pressed.
+    virtual void OnButtonRelease(int index) = 0;
+
     // Must return True when this state is finished for the game to continue to the next state.
     virtual bool IsFinished() = 0;
 };

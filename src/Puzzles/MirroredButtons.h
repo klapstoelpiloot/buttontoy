@@ -1,5 +1,5 @@
 #undef PUZZLE
-#define PUZZLE FiveStateToggle
+#define PUZZLE MirroredButtons
 #include "../PuzzleTemplate.h"
 
 PUZZLE::PUZZLE()
@@ -25,7 +25,8 @@ void PUZZLE::Update()
 
 void PUZZLE::OnButtonPress(int index)
 {
-    leds.Set(index, ALL_COLORS[(leds.Get(index) + 1) % ALL_COLORS_COUNT]);
+    int mirrorindex = (NUM_BUTTONS - 1) - index;
+    leds.Set(mirrorindex, ALL_COLORS[(leds.Get(mirrorindex) + 1) % ALL_COLORS_COUNT]);
 }
 
 void PUZZLE::OnButtonRelease(int index)

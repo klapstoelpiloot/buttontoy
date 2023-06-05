@@ -1,5 +1,5 @@
 #undef PUZZLE
-#define PUZZLE HelloWorld
+#define PUZZLE HoldDown
 #include "../PuzzleTemplate.h"
 
 PUZZLE::PUZZLE()
@@ -8,8 +8,8 @@ PUZZLE::PUZZLE()
 
 void PUZZLE::Enter()
 {
-    // Start with the LEDs off
-    leds.SetAll(OFF);
+    // Start with the LEDs red
+    leds.SetAll(RED);
 }
 
 void PUZZLE::Leave()
@@ -22,10 +22,11 @@ void PUZZLE::Update()
 
 void PUZZLE::OnButtonPress(int index)
 {
-    // Turn the associated LED on (green) when a button is pushed
     leds.Set(index, GREEN);
 }
 
 void PUZZLE::OnButtonRelease(int index)
 {
+    leds.Set(index, RED);
+    speaker.Play(togglesound0);
 }

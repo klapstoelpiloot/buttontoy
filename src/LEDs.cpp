@@ -1,5 +1,5 @@
-#include "LEDs.h"
 #include "Arduino.h"
+#include "LEDs.h"
 
 // 2 dimensional array for LED pins
 // First dimension is the LED index, second dimension is the color component (RGB)

@@ -1,5 +1,5 @@
-#include "Speaker.h"
 #include "Arduino.h"
+#include "Speaker.h"
 
 Speaker::Speaker() :
     melody(nullptr),

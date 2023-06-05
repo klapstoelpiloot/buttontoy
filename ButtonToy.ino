@@ -11,6 +11,9 @@
 #include "src/Puzzles/RandomOrder.h"
 #include "src/Puzzles/CycleSequence.h"
 #include "src/Puzzles/LeftRightSwap.h"
+#include "src/Puzzles/HoldDown.h"
+#include "src/Puzzles/HoldRandomCycle.h"
+#include "src/Puzzles/MirroredButtons.h"
 
 // Global objects
 Buttons buttons;
@@ -26,16 +29,21 @@ TimeoutToggle timeouttoggle;
 RandomOrder randomorder;
 CycleSequence cyclesequence;
 LeftRightSwap leftrightswap;
+HoldDown holddown;
+HoldRandomCycle holdrandomcycle;
+MirroredButtons mirroredbuttons;
 
 // List of puzzles (add reference to puzzles in this array)
-IState* puzzles[] = { &helloworld, &simpletoggle, &threestatetoggle, &fivestatetoggle, &randomorder, &timeouttoggle, &cyclesequence, &leftrightswap };
+IState* puzzles[] = { &helloworld, &simpletoggle, &threestatetoggle, &fivestatetoggle, &randomorder, &timeouttoggle, &mirroredbuttons,
+    &cyclesequence, &leftrightswap, &holddown, &holdrandomcycle };
 int puzzleindex = 0;
 IState* currentstate = nullptr;
 
 // State used when receiving a reward
 RewardState reward;
 
-// LED toggle sound
+// LED toggle sounds
+ToggleSound0 togglesound0;
 ToggleSound1 togglesound1;
 ToggleSound2 togglesound2;
 ToggleSound3 togglesound3;
@@ -43,6 +51,9 @@ ToggleSound4 togglesound4;
 ToggleSound5 togglesound5;
 ToggleSound6 togglesound6;
 IMelody* ledcountsounds[] = { &togglesound2, &togglesound3, &togglesound4, &togglesound5, &togglesound6 };
+
+// The colors we use in puzzles
+int ALL_COLORS[] = { RED, BLUE, YELLOW, PURPLE, GREEN };
 
 void setup()
 {
@@ -77,6 +88,10 @@ void loop()
         {
             anybuttonpressed = true;
             currentstate->OnButtonPress(i);
+        }
+        else if(buttons.IsReleased(i))
+        {
+            currentstate->OnButtonRelease(i);
         }
     }
 
@@ -119,4 +134,16 @@ void loop()
         }
         currentstate->Enter();
     }
+}
+
+// Returns a random color for use in puzzles
+int RandomColor()
+{
+    return ALL_COLORS[random(0, ALL_COLORS_COUNT)];
+}
+
+// Returns a random color for use in puzzles, but never returns green
+int RandomColorNoGreen()
+{
+    return ALL_COLORS[random(0, COLORS_NOGREEN_COUNT)];
 }

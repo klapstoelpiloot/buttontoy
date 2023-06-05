@@ -29,3 +29,7 @@ void PUZZLE::OnButtonPress(int index)
         default: leds.Set(index, RED); break;
     }
 }
+
+void PUZZLE::OnButtonRelease(int index)
+{
+}
